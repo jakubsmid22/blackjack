@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlackJack</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="cards.js"></script>
+    <script defer src="index.js"></script>
+    <script
+      src="https://kit.fontawesome.com/5c0610c8bc.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="game-container" id="gameContainer">
+      <div class="pot-money">
+        SÁZKA <br />
+        <span id="potMoney"></span>$
+      </div>
+      <div class="rules">
+        <div>BLACKJACK PLATÍ 3 K 2</div>
+        <div>Dealer musí táhnout na měkkou 17</div>
+        <div>PLATÍ 2 K 1 POJIŠTĚNÍ PLATÍ 2 K 1</div>
+      </div>
+      <div class="pot" id="pot">
+        <div class="message" id="message">
+          <div class="text" id="text"></div>
+          <button class="restart" id="restart">RESTART</button>
+        </div>
+      </div>
+      <div class="player-money">MÁŠ <br /><span id="playerMoney"></span>$</div>
+      <div class="betting">
+        <button class="bet-btn" id="minBet">Minimální sázka</button>
+        <div class="tokens-and-score">
+          <div class="tokens" id="tokens">
+            <div class="token pink" id="token1">1</div>
+            <div class="token green" id="token5">5</div>
+            <div class="token" id="token10">10</div>
+            <div class="token blue" id="token25">25</div>
+            <div class="token red" id="token100">100</div>
+          </div>
+          <div class="score remove" id="score">
+            <div>
+              <span id="playerScore"></span>
+              <div>TVOJE HODNOTA</div>
+            </div>
+            <div>
+              <span id="dealerScore"></span>
+              <div>HODNOTA POČÍTAČE</div>
+            </div>
+          </div>
+        </div>
+        <button class="bet-btn" id="maxBet">Maximální sázka</button>
+      </div>
+      <div class="blackjack-controls hide">
+        <button id="double" disabled></button>
+        <button id="stand" disabled></button>
+        <button id="hitPlay" disabled>HRÁT</button>
+      </div>
+      <div class="player-cards"></div>
+      <div class="dealer-cards"></div>
+      <div class="cards-on-table player" id="playerCardsOnTable">
+
+      </div>
+        
+      <div class="cards-on-table dealer" id="dealerCardsOnTable"></div>
+
+      <div class="templates">
+        <template id="cardTemplate2">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num>2</div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle">
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num>2</p>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template id="cardTemplateA">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle symbol-in-center">
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template id="cardTemplate3">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle symbols-in-center">
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template id="cardTemplate4">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle four-five-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+
+        <template id="cardTemplate5">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle four-five-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              </div>
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template id="cardTemplate6">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle six-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template id="cardTemplate7">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle seven-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+
+        <template id="cardTemplate8">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle eight-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+            <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+
+        <template id="cardTemplate9">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle nine-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+            <img
+            src="/icons/red-dia.png"
+            class="symbol-big"
+            data-symbol-big
+            alt="card-symbol"
+            draggable="false"
+          />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+
+        <template id="cardTemplate10">
+          <div class="card">
+            <div class="top-left">
+              <div>
+                <div class="number" data-card-num></div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <div class="middle ten-symbols">
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+              </div>
+              <div>
+                <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+            <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+              </div>
+              <div>
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol"
+                draggable="false"
+              />
+                <img
+                src="/icons/red-dia.png"
+                class="symbol-big"
+                data-symbol-big
+                alt="card-symbol "
+                draggable="false"
+              />
+              <img
+              src="/icons/red-dia.png"
+              class="symbol-big"
+              data-symbol-big
+              alt="card-symbol"
+              draggable="false"
+            />
+            <img
+            src="/icons/red-dia.png"
+            class="symbol-big"
+            data-symbol-big
+            alt="card-symbol"
+            draggable="false"
+          />
+              </div>
+            </div>
+            <div class="bottom-right">
+              <div>
+                <img
+                  src="/icons/red-dia.png"
+                  class="symbol-small"
+                  data-symbol-small
+                  alt="card-symbol"
+                  draggable="false"
+                />
+                <p class="number" data-card-num></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+      </div>
+    </div>
+  </body>
+</html>

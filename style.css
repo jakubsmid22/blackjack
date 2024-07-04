@@ -1,0 +1,584 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  overflow: hidden;
+  height: 100svh;
+  width: 100svw;
+}
+
+.game-container {
+  height: 100svh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: url("https://img.freepik.com/free-vector/flat-design-poker-table-background_23-2151047002.jpg");
+}
+
+.pot-money,
+.player-money {
+  position: absolute;
+  left: 2rem;
+  text-align: center;
+  color: yellow;
+}
+
+.pot-money span,
+.player-money span {
+  font-weight: bold;
+}
+
+.pot-money {
+  top: 2rem;
+}
+
+.player-money {
+  bottom: 2rem;
+}
+
+.rules {
+  text-align: center;
+  color: white;
+  line-height: 3rem;
+}
+
+.rules div:first-child {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.rules div:nth-child(2) {
+  font-size: 1.2rem;
+  color: yellow;
+}
+
+.rules div:last-child {
+  font-size: 2rem;
+}
+
+.pot {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  height: 25rem;
+  width: 25rem;
+  border: 1px solid yellow;
+  background-color: rgb(97, 6, 6);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.blackjack-controls {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.blackjack-controls button {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  width: 12vw;
+  height: 3vw;
+  border-radius: 12px;
+  border: yellow 1px solid;
+  background-color: rgb(97, 6, 6);
+  color: yellow;
+}
+
+.player-cards,
+.dealer-cards,
+.card {
+  height: 22rem;
+  width: 15rem;
+  border: 1px solid black;
+  border-radius: 12px;
+  background-color: #fff;
+  position: absolute;
+  overflow: hidden;
+}
+
+.player-cards,
+.dealer-cards {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Card_back_01.svg/1406px-Card_back_01.svg.png");
+  background-size: cover;
+  transform: rotate(40deg);
+  position: absolute;
+}
+
+.player-cards {
+  left: 15rem;
+  bottom: -10rem;
+}
+
+.dealer-cards {
+  right: 15rem;
+  top: -10rem;
+}
+
+.cards-on-table {
+  position: absolute;
+  display: flex;
+  height: 30vw;
+  width: 35vw;
+}
+
+.cards-on-table.player {
+  left: 0;
+  top: 7rem;
+}
+
+.cards-on-table.dealer {
+  right: 0;
+  top: 17rem;
+}
+
+.card:first-child {
+  left: 2rem;
+  transform: rotate(-20deg);
+}
+
+.dealer .card:first-child {
+  left: -2rem;
+  transform: rotate(-4deg);
+}
+
+.card:nth-child(2) {
+  left: 9rem;
+  transform: rotate(-15deg);
+}
+
+.dealer .card:nth-child(2) {
+  left: 5rem;
+  transform: rotate(15deg);
+}
+
+.card:nth-child(3) {
+  left: 16rem;
+  transform: rotate(-5deg);
+}
+
+.dealer .card:nth-child(3) {
+  left: 10rem;
+  transform: rotate(15deg);
+}
+
+.card:nth-child(4) {
+  left: 21rem;
+  transform: rotate(10deg);
+}
+
+.dealer .card:nth-child(4) {
+  left: 15rem;
+  transform: rotate(-20deg);
+}
+
+.card:nth-child(5) {
+  left: 27rem;
+  transform: rotate(-10deg);
+}
+
+.dealer .card:nth-child(5) {
+  left: 20rem;
+  transform: rotate(10deg);
+}
+
+.card:nth-child(n + 6) {
+  top: 15rem;
+}
+
+.card:nth-child(6) {
+  left: 2rem;
+  transform: rotate(-20deg);
+}
+
+.dealer .card:nth-child(6) {
+  left: 25rem;
+  top: 0;
+  transform: rotate(10deg);
+}
+
+.card:nth-child(7) {
+  left: 7rem;
+  transform: rotate(10deg);
+}
+
+.dealer .card:nth-child(7) {
+  left: 0rem;
+  transform: rotate(-10deg);
+}
+
+.card:nth-child(8) {
+  left: 12rem;
+  transform: rotate(-10deg);
+}
+
+.dealer .card:nth-child(8) {
+  left: 5rem;
+  transform: rotate(10deg);
+}
+
+.card:nth-child(9) {
+  left: 18rem;
+  transform: rotate(5deg);
+}
+
+.dealer .card:nth-child(9) {
+  left: 10rem;
+  transform: rotate(2deg);
+}
+
+.card:nth-child(10) {
+  left: 22rem;
+  transform: rotate(15deg);
+}
+
+.dealer .card:nth-child(10) {
+  left: 15rem;
+  transform: rotate(-10deg);
+}
+
+.card:nth-child(11) {
+  left: 28rem;
+  transform: rotate(-15deg);
+}
+
+.dealer .card:nth-child(11) {
+  left: 25rem;
+  transform: rotate(20deg);
+}
+
+.betting {
+  position: absolute;
+  bottom: 7rem;
+  display: flex;
+  align-items: end;
+}
+
+.tokens-and-score {
+  width: 19vw;
+}
+
+.tokens-and-score .tokens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 15rem;
+  color: yellow
+}
+
+.score div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.tokens.remove,
+.score.remove {
+  display: none;
+}
+
+.score div span {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.token {
+  border: 10px solid black;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: #ffff;
+}
+
+.tokenToAppend {
+  position: absolute;
+}
+
+.pink {
+  border-color: hsl(350, 100%, 62%);
+}
+
+.green {
+  border-color: hsl(135, 100%, 28%);
+}
+
+.blue {
+  border-color: #0000ff;
+}
+
+.red {
+  border-color: #ff0000;
+}
+
+.symbol-small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.symbol-big {
+  width: 3rem;
+  height: 3rem;
+}
+
+.card {
+  padding: 1rem;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.number {
+  font-size: 1.5rem;
+}
+
+.number.red {
+  color: red;
+}
+
+.number.black {
+  color: black;
+}
+
+.top-left,
+.bottom-right {
+  display: flex;
+  width: 25%;
+}
+
+.bottom-right {
+  align-items: end;
+  justify-content: right;
+}
+
+.bottom-right div {
+  transform: rotate(180deg);
+}
+
+.middle {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.templates {
+  display: none;
+}
+
+.symbol-in-center {
+  justify-content: center;
+}
+
+.symbols-in-center {
+  justify-content: space-evenly;
+}
+
+.four-five-symbols div {
+  display: flex;
+  gap: 2rem;
+}
+
+.six-symbols,
+.seven-symbols,
+.eight-symbols,
+.nine-symbols,
+.ten-symbols {
+  flex-direction: row;
+  display: flex;
+  width: 10rem;
+}
+
+.six-symbols div,
+.seven-symbols div,
+.eight-symbols div,
+.nine-symbols div,
+.ten-symbols div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.seven-symbols div:nth-child(2),
+.eight-symbols div:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translateX(-50%);
+}
+
+.nine-symbols div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+}
+
+.ten-symbols div:nth-child(2) {
+  padding: 3rem 0;
+}
+
+.eight-symbols div:nth-child(2) {
+  height: 11rem;
+}
+
+.card.cardupsideDown::after {
+  content: "";
+  background-color: red;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Card_back_01.svg/1406px-Card_back_01.svg.png");
+  background-size: cover;
+}
+
+.message {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 2rem;
+  opacity: 0;
+  text-align: center;
+  padding: 1rem;
+  width: 80%;
+}
+
+.restart {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: yellow;
+  border: none;
+  transition: all .5s;
+}
+
+.restart:hover {
+  transform: scale(1.1);
+}
+
+.message.show {
+  opacity: 1;
+}
+
+.text.blackjack {
+  color: #ffc107;
+}
+
+.text.loss {
+  color: #dc3545;
+}
+
+.text.draw {
+  color: #007bff;
+}
+
+.text.win {
+  color: #28a745;
+}
+
+.bet-btn {
+  background-color: rgb(97, 6, 6);
+  color: yellow;
+  border: 1px solid yellow;
+  padding: .3rem .6rem;
+}
+
+@media(max-width: 1600px) {
+  .player-cards, .dealer-cards {
+    display: none;
+  }
+
+  .rules {
+    line-height: 2rem;
+  }
+
+  .rules div:first-child, .rules div:nth-child(3) {
+    font-size:  1rem;
+  }
+
+  .rules div:nth-child(2) {
+    font-size:  .7rem;
+  }
+
+  .tokens {
+    width: 200px;
+    margin-left: -3rem;
+  }
+
+  .token {
+    height: 3rem;
+    width: 3rem;
+    border-width: 5px;
+    font-size: .5rem;
+  }
+
+  .blackjack-controls {
+    margin-left: 4rem;
+  }
+
+  .blackjack-controls button {
+    font-size: .8rem;
+    width: 8rem;
+    height: 2rem;
+    text-align: center;
+  }
+
+  .card {
+    width: 5rem;
+    height: 8rem;
+    padding: .5rem;
+  }
+
+  .symbol-big {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .symbol-small {
+    height: .5rem;
+    width: .5rem;
+  }
+
+  .number {
+    font-size: .5rem;
+  }
+
+  .player-money {
+    margin-bottom: 2rem;
+  }
+}
