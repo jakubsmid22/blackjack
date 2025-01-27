@@ -231,7 +231,7 @@ const addCardValue = (value, player, isUpsideDown) => {
       }
     }
     else if (value === "J" || value === "Q" || value === "K") {
-      player === "player" ? playerCardsValue += 10 : dealerCardsValue += 10;
+      player === "player" ? playerCardsValue += 10 : isUpsideDown ? upsideDownCardvalue = 10 : dealerCardsValue += 10;
     }
     else {
       if (player === "player") {
